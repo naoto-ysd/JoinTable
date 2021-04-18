@@ -1,9 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%# <p id="notice"><%= notice</p> %>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Group name:</strong>
   <%= @group.name %>
 </p>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<table>
+  <thead>
+    <tr>
+      <th>User name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= link_to @group.name + 'に登録', add_user_group_path(user_id: user.id, group_id: @group.id), method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_group_path(@group) %>
+<%= link_to 'Back', root_path %>
