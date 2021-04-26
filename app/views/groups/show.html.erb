@@ -1,14 +1,25 @@
 <%# <p id="notice"><%= notice</p> %>
-
 <p>
   <strong>Group name:</strong>
   <%= @group.name %>
 </p>
 
+<p>
+  <strong>所属メンバー</strong>
+</p>
+
+<p>
+  <% @group.group_users.each do |group_user| %>
+    <div>
+      <%= group_user.user.name%>
+    </div>
+  <% end %>
+</p>
+
 <table>
   <thead>
     <tr>
-      <th>User name</th>
+      <th><%= @group.name + 'に所属していないユーザー'%></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,7 +27,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <%# グループに所属していないメンバーを表示 %>
+        <td><%= user.name%></td>
         <td><%= link_to @group.name + 'に登録', add_user_group_path(user_id: user.id, group_id: @group.id), method: :post %></td>
       </tr>
     <% end %>

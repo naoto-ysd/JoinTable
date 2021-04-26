@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
+    @group = Group.find(params[:id])
     @users = User.all
   end
 
@@ -46,10 +47,9 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    group = Group.find(params[:group_id])
+    @group = Group.find(params[:group_id])
     user = User.find(params[:user_id])
-    group.users << user
-    binding.pry
+    @group.users << user
     redirect_to group_path, notice: "ユーザーを追加しました。"
   end
 
